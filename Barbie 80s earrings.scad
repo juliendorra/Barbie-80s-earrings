@@ -14,7 +14,7 @@ ring_thickness = 2;
 
 // Cylinder parameters
 cylinder_height = 5;
-cylinder_radius = 1;
+cylinder_radius = 2;
 
 // Functions and modules
 module equilateral_triangle(side) {
@@ -52,6 +52,7 @@ module extruded_rings() {
 
 module connecting_cylinder() {
     cylinder(h = cylinder_height, r = cylinder_radius, center = true);
+    translate([0, 0, -cylinder_height / 2]) cylinder(h = ring_thickness/2, r = outer_ring_radius*0.6, center = true);
 }
 
 // Assembly
@@ -59,12 +60,12 @@ translate([-triangle_side / 2, -triangle_side * sqrt(3) / 6, 0]) {
     #extruded_triangle();
     
     confetti_coordinates = [
-      [triangle_side / 2, triangle_side * sqrt(3) / 6],
+        [triangle_side / 4, triangle_side * sqrt(3) / 12],
+        [triangle_side / 2, triangle_side * sqrt(3) / 12],
+        [3 * triangle_side / 4, triangle_side * sqrt(3) / 12],
         [triangle_side / 4, triangle_side * sqrt(3) / 4],
+        [triangle_side / 2, triangle_side * sqrt(3) / 4],
         [3 * triangle_side / 4, triangle_side * sqrt(3) / 4],
-        [triangle_side / 6, triangle_side * sqrt(3) / 6],
-        [triangle_side / 2, triangle_side * sqrt(3) / 6],
-        [5 * triangle_side / 6, triangle_side * sqrt(3) / 6],
         [triangle_side / 3, triangle_side * sqrt(3) / 3],
         [2 * triangle_side / 3, triangle_side * sqrt(3) / 3]
     ];
