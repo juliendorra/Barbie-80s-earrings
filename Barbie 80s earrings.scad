@@ -55,9 +55,19 @@ module connecting_cylinder() {
     translate([0, 0, -cylinder_height / 2]) cylinder(h = ring_thickness/2, r = outer_ring_radius*0.6, center = true);
 }
 
+module connecting_cylinder_hollow() {
+    cylinder(h = cylinder_height, r = cylinder_radius, center = true);
+}
+
 // Assembly
 translate([-triangle_side / 2, -triangle_side * sqrt(3) / 6, 0]) {
-    #extruded_triangle();
+    
+    #difference(){
+        extruded_triangle();
+        translate([triangle_side / 2, triangle_side * sqrt(3) / 6, -cylinder_height / 2.4]) {
+            connecting_cylinder_hollow();
+        }       
+        }
     
     // from bottom to top
     // 
@@ -87,5 +97,5 @@ translate([-triangle_side / 2, -triangle_side * sqrt(3) / 6, 0]) {
     
     translate([triangle_side / 2, triangle_side * sqrt(3) / 6, -ring_thickness]) extruded_rings();
     
-    translate([triangle_side / 2, triangle_side * sqrt(3) / 6, -cylinder_height / 2]) connecting_cylinder();
+    translate([triangle_side / 2, triangle_side * sqrt(3) / 6, -cylinder_height / 2.4]) connecting_cylinder();
 }
