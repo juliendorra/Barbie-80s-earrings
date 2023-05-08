@@ -77,23 +77,25 @@ translate([-triangle_side / 2, -triangle_side * sqrt(3) / 6, 0]) {
     // 3 4 5
     // 0 1 2
     //
+    // [x, y, angle]
     confetti_coordinates = [
-        [triangle_side / 4, triangle_side * sqrt(3) / 12], // left most bottom
-        [triangle_side / 2, triangle_side * sqrt(3) / 12],
+        [triangle_side / 4, triangle_side * sqrt(3) / 12, 30], // left most bottom
+        [triangle_side / 2, triangle_side * sqrt(3) / 12, 20],
     
-        [3 * triangle_side / 4, triangle_side * sqrt(3) / 12],
-        [triangle_side / 3, triangle_side * sqrt(3) / 4],
-        [triangle_side / 2, triangle_side * sqrt(3) / 4],
+        [3 * triangle_side / 4, triangle_side * sqrt(3) / 12, 45],
+        [triangle_side / 3, triangle_side * sqrt(3) / 4, 315],
+        [triangle_side / 2, triangle_side * sqrt(3) / 4, 100],
     
-        [3 * triangle_side / 4.5, triangle_side * sqrt(3) / 4],
-        [triangle_side / 2.5, triangle_side * sqrt(3) / 2.8],
-        [2 * triangle_side / 3.5, triangle_side * sqrt(3) / 3]
+        [3 * triangle_side / 4.5, triangle_side * sqrt(3) / 4, 120],
+        [triangle_side / 2.5, triangle_side * sqrt(3) / 2.8, 70],
+        [2 * triangle_side / 3.5, triangle_side * sqrt(3) / 3, 45]
     ];
     
     for (coord = confetti_coordinates) {
         x = coord[0];
         y = coord[1];
-        translate([x, y, thickness]) rotate([0, 0, 45]) extruded_confetti();
+        angle = coord[2];
+        translate([x, y, thickness]) rotate([0, 0, angle]) extruded_confetti();
 
     }
     
