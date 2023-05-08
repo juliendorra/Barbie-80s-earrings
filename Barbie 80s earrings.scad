@@ -59,15 +59,23 @@ module connecting_cylinder() {
 translate([-triangle_side / 2, -triangle_side * sqrt(3) / 6, 0]) {
     #extruded_triangle();
     
+    // from bottom to top
+    // 
+    // 6 7
+    // 3 4 5
+    // 0 1 2
+    //
     confetti_coordinates = [
-        [triangle_side / 4, triangle_side * sqrt(3) / 12],
+        [triangle_side / 4, triangle_side * sqrt(3) / 12], // left most bottom
         [triangle_side / 2, triangle_side * sqrt(3) / 12],
+    
         [3 * triangle_side / 4, triangle_side * sqrt(3) / 12],
-        [triangle_side / 4, triangle_side * sqrt(3) / 4],
+        [triangle_side / 3, triangle_side * sqrt(3) / 4],
         [triangle_side / 2, triangle_side * sqrt(3) / 4],
-        [3 * triangle_side / 4, triangle_side * sqrt(3) / 4],
-        [triangle_side / 3, triangle_side * sqrt(3) / 3],
-        [2 * triangle_side / 3, triangle_side * sqrt(3) / 3]
+    
+        [3 * triangle_side / 4.5, triangle_side * sqrt(3) / 4],
+        [triangle_side / 2.5, triangle_side * sqrt(3) / 2.8],
+        [2 * triangle_side / 3.5, triangle_side * sqrt(3) / 3]
     ];
     
     for (coord = confetti_coordinates) {
