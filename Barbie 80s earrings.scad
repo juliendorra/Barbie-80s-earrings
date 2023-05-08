@@ -1,3 +1,5 @@
+$fn = 32; 
+
 // Triangle parameters
 triangle_side = 30;
 thickness = 2;
