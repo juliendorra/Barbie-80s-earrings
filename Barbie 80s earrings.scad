@@ -1,4 +1,4 @@
-$fn = 32; 
+$fn = 64; 
 
 // Triangle parameters
 
@@ -57,7 +57,9 @@ module extruded_rings() {
         
         rotate_extrude(convexity = 10) translate([outer_ring_radius_smaller, 0, 0]) circle(r = ring_thickness_smaller / 2);
     
-        translate([0, outer_ring_radius+ ring_thickness_smaller*1.2 + outer_ring_radius_smaller / 2, 0]) {
+        translate([0, 
+        outer_ring_radius+ ring_thickness_smaller*1.2 + outer_ring_radius_smaller / 2,
+        (ring_thickness - ring_thickness_smaller)/2]) {
     
         rotate_extrude(convexity = 10) translate([outer_ring_radius, 0, 0]) circle(r = ring_thickness / 2);
  
