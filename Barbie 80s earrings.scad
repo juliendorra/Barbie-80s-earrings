@@ -1,13 +1,14 @@
 $fn = 32; 
 
 // Triangle parameters
-triangle_side = 30;
+
 thickness = 3.5;
+circle_radius = 1.2;
+triangle_side = 30 - circle_radius;
 
 // Confetti parameters
-confetti_length = 4;
-confetti_width = 1;
-circle_radius = 0.5;
+confetti_length = 5.2;
+confetti_circle_radius = 0.9;
 
 // Ring parameters
 outer_ring_radius = 14;
@@ -20,14 +21,13 @@ cylinder_radius = 2;
 
 // Functions and modules
 module equilateral_triangle(side) {
-  //  polygon(points=[[0, 0], [side, 0], [side / 2, side * sqrt(3) / 2]]);
     
     hull(){      
         translate([0, 0]) circle(r = circle_radius);
         
         translate([side, 0]) circle(r = circle_radius);
 
-         translate([side / 2, side * sqrt(3) / 2]) circle(r = circle_radius);
+        translate([side / 2, side * sqrt(3) / 2]) circle(r = circle_radius);
     }
   
 }
@@ -38,8 +38,8 @@ module extruded_triangle() {
 
 module confetti() {
     hull() {
-        translate([-confetti_length / 2 + circle_radius, 0]) circle(r = circle_radius);
-        translate([confetti_length / 2 - circle_radius, 0]) circle(r = circle_radius);
+        translate([-confetti_length / 2 + confetti_circle_radius, 0]) circle(r = confetti_circle_radius);
+        translate([confetti_length / 2 - confetti_circle_radius, 0]) circle(r = confetti_circle_radius);
     }
 }
 
@@ -67,7 +67,7 @@ module extruded_rings() {
 
 module connecting_cylinder() {
     cylinder(h = cylinder_height, r = cylinder_radius, center = true);
-    translate([0, 0, -cylinder_height / 2]) cylinder(h = ring_thickness/2, r = outer_ring_radius*0.6, center = true);
+    translate([0, 0, -cylinder_height / 2]) cylinder(h = ring_thickness/3, r = outer_ring_radius*0.6, center = true);
 }
 
 module connecting_cylinder_hollow() {
@@ -81,17 +81,23 @@ module extruded_triangle_with_confettis(){
     // from bottom to top
     // [x, y, angle]
     confetti_coordinates = [
-      
-        [triangle_side / 2.5, triangle_side * sqrt(3) / 2.8, 60],
-        [2 * triangle_side / 3.5, triangle_side * sqrt(3) / 3, 45],
+    
+    
+        [triangle_side / 1.25, triangle_side * sqrt(3) / 14, 315], 
+        [triangle_side / 2.2, triangle_side * sqrt(3) / 14, 315],
+        [triangle_side / 5, triangle_side * sqrt(3) / 21, 0],
 
-        [triangle_side / 3, triangle_side * sqrt(3) / 4, 315],
-        [triangle_side / 2, triangle_side * sqrt(3) / 4, 100],
-        [3 * triangle_side / 4.5, triangle_side * sqrt(3) / 4, 80],
 
-        [triangle_side / 4, triangle_side * sqrt(3) / 12, 45],
-        [triangle_side / 2, triangle_side * sqrt(3) / 12, 20],
-        [3 * triangle_side / 4, triangle_side * sqrt(3) / 12, 70],
+
+         [3 * triangle_side / 4.9, triangle_side * sqrt(3) / 6, 45],
+         [triangle_side / 2.3, triangle_side * sqrt(3) / 4.5, 90],    
+         [triangle_side / 4, triangle_side * sqrt(3) / 5.8, 230],
+
+    
+        [2 * triangle_side / 3.5, triangle_side * sqrt(3) / 3.5, 315],
+        
+        [triangle_side / 2.1, triangle_side * sqrt(3) / 2.5, 45],
+
 
     ];
     
@@ -101,7 +107,7 @@ module extruded_triangle_with_confettis(){
     x = coord[0];
     y = coord[1];
     angle = coord[2];
-    translate([x, y, thickness]) rotate([0, 0, angle]) extruded_confetti();
+    translate([x, y, thickness]) rotate([0, 0, angle]) #extruded_confetti();
 
     }
     
