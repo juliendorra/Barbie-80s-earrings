@@ -2,7 +2,7 @@ $fn = 32;
 
 // Triangle parameters
 
-thickness = 3.5;
+thickness = 4.5;
 circle_radius = 1.2;
 triangle_side = 30 - circle_radius;
 
@@ -10,13 +10,16 @@ triangle_side = 30 - circle_radius;
 confetti_length = 5.2;
 confetti_circle_radius = 0.9;
 
-// Ring parameters
-outer_ring_radius = 14;
-outer_ring_radius_smaller = 7;
+// Rings parameters
+outer_ring_radius = 16;
 ring_thickness = 5.5;
 
+outer_ring_radius_smaller = 5.5;
+ring_thickness_smaller = 4.5;
+
+
 // Cylinder parameters
-cylinder_height = ring_thickness*1.4;
+cylinder_height = ring_thickness_smaller*1.8;
 cylinder_radius = 2;
 
 // Functions and modules
@@ -52,22 +55,21 @@ module extruded_rings() {
     
     scale([1, 1, 0.8]){
         
-                rotate_extrude(convexity = 10) translate([outer_ring_radius_smaller, 0, 0]) circle(r = ring_thickness / 2);
+        rotate_extrude(convexity = 10) translate([outer_ring_radius_smaller, 0, 0]) circle(r = ring_thickness_smaller / 2);
     
-    translate([0, outer_ring_radius+ ring_thickness*1.3 + outer_ring_radius_smaller / 2, 0]) {
+        translate([0, outer_ring_radius+ ring_thickness_smaller*1.2 + outer_ring_radius_smaller / 2, 0]) {
     
         rotate_extrude(convexity = 10) translate([outer_ring_radius, 0, 0]) circle(r = ring_thickness / 2);
  
     }
-        }
-    
+  }
     
 }
 
 
 module connecting_cylinder() {
     cylinder(h = cylinder_height, r = cylinder_radius, center = true);
-    translate([0, 0, -cylinder_height / 2]) cylinder(h = ring_thickness/3, r = outer_ring_radius*0.6, center = true);
+    translate([0, 0, -cylinder_height / 2]) cylinder(h = ring_thickness/3, r = outer_ring_radius_smaller*1.1, center = true);
 }
 
 module connecting_cylinder_hollow() {
@@ -118,11 +120,11 @@ module extruded_triangle_with_confettis(){
 // Assembled object
 
 
-connection_point = [triangle_side / 2, triangle_side * sqrt(3) / 9, -cylinder_height / 2.4];
+connection_point = [triangle_side / 2, triangle_side * sqrt(3) / 9, -cylinder_height *0.2];
 
 module assembled_earrings() {
       
-    difference(){
+   # difference(){
         extruded_triangle_with_confettis();
         translate(connection_point) {
             connecting_cylinder_hollow();
@@ -131,9 +133,9 @@ module assembled_earrings() {
 
     
     translate(connection_point) {
-        #connecting_cylinder();
+        connecting_cylinder();
         
-        translate([0, outer_ring_radius_smaller- ring_thickness/1.2, 0]) extruded_rings();
+        translate([0, outer_ring_radius_smaller- ring_thickness_smaller/1.2, connection_point[2]/2]) extruded_rings();
     }
 }
 
@@ -149,11 +151,11 @@ module parts_earrings() {
         }       
         }
 
-        translate([50, 50, 0]) {
+     translate([triangle_side/2, 50, 0]) {
             extruded_rings();
         }
 
-        translate([50, 100, 0]) {
+     translate([triangle_side/2,, 120, 0]) {
             connecting_cylinder();
         }
     }
