@@ -75,7 +75,7 @@ module connecting_cylinder() {
 }
 
 module connecting_cylinder_hollow() {
-    cylinder(h = cylinder_height, r = cylinder_radius, center = true);
+    cylinder(h = cylinder_height, r = cylinder_radius*1.1, center = true);
 }
 
 // Assembly
