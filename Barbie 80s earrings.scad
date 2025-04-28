@@ -157,7 +157,7 @@ module parts_earrings() {
             extruded_rings();
         }
 
-     translate([triangle_side/2,, 120, 0]) {
+     translate([triangle_side/2, 120, 0]) {
             connecting_cylinder();
         }
     }
